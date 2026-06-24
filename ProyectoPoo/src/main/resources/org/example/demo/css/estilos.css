@@ -1,0 +1,44 @@
+.lblTitulo{
+    -fx-font-weight: bold;
+    -fx-font-size:24px;
+}
+.panelLogin{
+    -fx-background-color: #8ECAE6;
+}
+.btnIngreso{
+    -fx-background-color: #FFB703;
+}
+.btnSalir{
+    -fx-background-color: #023047;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+.panel {
+    -fx-background-color: #FB8500; /* En JavaFX se le pone "-fx-" antes */
+}
+.caja{
+    -fx-background-color: #ffffff;
+}
+.btnCrear{
+    -fx-backgorund-color: #219EBC;
+}
+.btnActualizar{
+    -fx-background-color:#8ECAE6;
+}
+.btnActualizar:hover{
+    -fx-background-color:#FFB703;
+}
+.btnBuscar{
+    -fx-background-color:#023047;
+}
+.btnBuscar:hover{
+    -fx-background-color:#FFB703;
+}
+.btnEliminar{
+    -fx-background-color:#FB8500;
+}
+.btnEliminar:hover{
+    -fx-background-color:#FFB703;
+}
