@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="606.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER_NAME">
+   <children>
+      <Label layoutX="42.0" layoutY="41.0" text="CODIGO" />
+      <Label layoutX="42.0" layoutY="106.0" text="NOMBRE" />
+      <Label layoutX="50.0" layoutY="170.0" text="SERIE" />
+      <Label layoutX="44.0" layoutY="222.0" text="MARCA" />
+      <Label layoutX="378.0" layoutY="41.0" text="STOCK" />
+      <Label layoutX="376.0" layoutY="106.0" text="PRECIO" />
+      <Label layoutX="376.0" layoutY="170.0" text="CATALOGO" />
+      <TextField layoutX="31.0" layoutY="59.0" prefHeight="26.0" prefWidth="248.0" />
+      <TextField layoutX="32.0" layoutY="129.0" prefHeight="26.0" prefWidth="248.0" />
+      <TextField layoutX="32.0" layoutY="187.0" prefHeight="26.0" prefWidth="248.0" />
+      <TextField layoutX="33.0" layoutY="243.0" prefHeight="26.0" prefWidth="248.0" />
+      <Spinner layoutX="376.0" layoutY="59.0" />
+      <Spinner layoutX="376.0" layoutY="129.0" />
+      <ComboBox layoutX="376.0" layoutY="200.0" prefWidth="150.0" />
+      <TreeTableView layoutX="43.0" layoutY="342.0" prefHeight="200.0" prefWidth="528.0">
+        <columns>
+          <TreeTableColumn prefWidth="75.0" text="Codigo" />
+          <TreeTableColumn prefWidth="75.0" text="Nombre" />
+            <TreeTableColumn prefWidth="75.0" text="Serie" />
+            <TreeTableColumn prefWidth="75.0" text="Marca" />
+            <TreeTableColumn prefWidth="75.0" text="Stock" />
+            <TreeTableColumn prefWidth="75.0" text="Catalog" />
+            <TreeTableColumn prefWidth="75.0" text="Precio" />
+        </columns>
+      </TreeTableView>
+      <Button layoutX="527.0" layoutY="553.0" mnemonicParsing="false" text="SALIR" />
+      <Button layoutX="32.0" layoutY="553.0" mnemonicParsing="false" text="REGRESAR" />
+      <Button layoutX="60.0" layoutY="290.0" mnemonicParsing="false" text="GUARDAR" />
+      <Label layoutX="382.0" layoutY="234.0" text="Buscar" />
+      <Label layoutX="186.0" layoutY="294.0" />
+      <Button layoutX="258.0" layoutY="290.0" mnemonicParsing="false" text="ACTUALIZAR" />
+      <Button layoutX="451.0" layoutY="290.0" mnemonicParsing="false" text="ELIMINAR" />
+   </children>
 </AnchorPane>
