@@ -7,5 +7,10 @@ public class Administrador extends Persona {
         super(id, nombre, apellido, usuario, contrasenia, cargo);
     }
 
+    @Override
+    public String obtenerVista() {
+        return "org/example/demo/view/administracionProductos.fxml";
+    }
+
 
 }

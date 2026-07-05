@@ -27,5 +27,6 @@
         <Button fx:id="btnIngreso" layoutX="126.0" layoutY="203.0" mnemonicParsing="false" styleClass="btnIngreso" stylesheets="@../css/estilos.css" text="Ingreso " />
         <Button fx:id="btnSalir" layoutX="255.0" layoutY="247.0" mnemonicParsing="false" styleClass="btnSalir" stylesheets="@../css/estilos.css" text="salir" textFill="WHITE" />
         <PasswordField fx:id="passfContrasena" layoutX="38.0" layoutY="167.0" prefHeight="26.0" prefWidth="243.0" />
+      <Label fx:id="lblMensajeLogin" layoutX="134.0" layoutY="247.0" />
     </children>
 </AnchorPane>

@@ -7,7 +7,7 @@ public abstract class Persona {
     private String usuario;
     private String contrasenia;
     private String cargo;
-
+    public Persona() {}
 
 
     public Persona(String id, String nombre, String apellido, String usuario, String contrasenia, String cargo) {
@@ -61,6 +61,8 @@ public abstract class Persona {
     public String getCargo() {
         return cargo;
     }
+
+    public abstract String obtenerVista();
 
 
 
