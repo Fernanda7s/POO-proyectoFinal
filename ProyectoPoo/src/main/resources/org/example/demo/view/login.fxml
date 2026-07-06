@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="286.0" prefWidth="314.0" styleClass="panelLogin" stylesheets="@../css/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER_NAME">
+    <children>
+        <ImageView fitHeight="54.0" fitWidth="73.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/logo.jpg" />
+            </image></ImageView>
+        <Label fx:id="lblTitulo" layoutX="129.0" layoutY="33.0" stylesheets="@../css/estilos.css" text="TecnoCelular">
+            <font>
+                <Font name="Segoe UI Bold" size="23.0" />
+            </font></Label>
+        <Label fx:id="lblUsuario" layoutX="38.0" layoutY="85.0" text="Usuario">
+            <font>
+                <Font name="Source Code Pro Bold" size="16.0" />
+            </font></Label>
+        <TextField fx:id="txtUsuario" layoutX="38.0" layoutY="109.0" prefHeight="26.0" prefWidth="243.0" />
+        <Label fx:id="lblContrasena" layoutX="38.0" layoutY="149.0" text="Contraseña">
+            <font>
+                <Font name="Source Code Pro Bold" size="16.0" />
+            </font></Label>
+        <Button fx:id="btnIngreso" layoutX="126.0" layoutY="203.0" mnemonicParsing="false" styleClass="btnIngreso" stylesheets="@../css/estilos.css" text="Ingreso " />
+        <Button fx:id="btnSalir" layoutX="255.0" layoutY="247.0" mnemonicParsing="false" styleClass="btnSalir" stylesheets="@../css/estilos.css" text="salir" textFill="WHITE" />
+        <PasswordField fx:id="passfContrasena" layoutX="38.0" layoutY="167.0" prefHeight="26.0" prefWidth="243.0" />
+      <Label fx:id="lblMensajeLogin" layoutX="134.0" layoutY="247.0" />
+    </children>
 </AnchorPane>
