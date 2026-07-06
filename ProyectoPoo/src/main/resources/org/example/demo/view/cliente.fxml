@@ -1,14 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="615.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER_NAME">
+   <children>
+      <Label layoutX="24.0" layoutY="28.0" prefHeight="26.0" prefWidth="133.0" text="GESTION DE CLIENTES" />
+      <VBox layoutX="24.0" layoutY="63.0" prefHeight="116.0" prefWidth="645.0">
+         <children>
+            <Label text="BUSQUEDA DE CLIENTE" />
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="ID Cliente:" />
+                  <Label text="Nombre del Cliente" GridPane.columnIndex="1" />
+                  <TextField promptText="Ingrese el ID del cleinte" GridPane.rowIndex="1" />
+                  <TextField promptText="Ingrese el nombre del cliente" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button mnemonicParsing="false" text="BUSCAR" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+      <VBox layoutX="25.0" layoutY="168.0" prefHeight="242.0" prefWidth="645.0">
+         <children>
+            <Label text="DATOS DEL CLIENTE" />
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="ID Cliente" />
+                  <Label text="Nombre del Cliente:" GridPane.rowIndex="2" />
+                  <Label text="Teléfono: " GridPane.rowIndex="4" />
+                  <Label text="Correo Electrónico:" GridPane.columnIndex="1" />
+                  <Label text="Dirección: " GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Fecha de Registro: " GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField promptText="Ingrese el ID del cliente" GridPane.rowIndex="1" />
+                  <TextField promptText="Ingrese el nombre del cliente" GridPane.rowIndex="3" />
+                  <TextField promptText="Ingrese número de teléfono" GridPane.rowIndex="5" />
+                  <TextField promptText="Ingrese correo electrónico" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField promptText="Ingrese dirección del domicilio" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <DatePicker prefHeight="25.0" prefWidth="242.0" promptText="dd/mm/aaaa" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+               </children>
+            </GridPane>
+            <HBox prefHeight="42.0" prefWidth="645.0">
+               <children>
+                  <Button mnemonicParsing="false" text="GUARDAR" />
+                  <Button mnemonicParsing="false" text="LIMPIAR" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="25.0" layoutY="425.0" prefHeight="164.0" prefWidth="745.0">
+         <children>
+            <Label text="VISUALIZACIÓN DE CLIENTES" />
+            <TableView prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn prefWidth="52.0" text="ID" />
+                <TableColumn prefWidth="165.0" text="Nombre" />
+                  <TableColumn prefWidth="131.0" text="Correo Eelectrónico" />
+                  <TableColumn prefWidth="99.0" text="Teléfono" />
+                  <TableColumn prefWidth="177.0" text="Dirección" />
+                  <TableColumn prefWidth="120.0" text="Fecha de registro" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>
