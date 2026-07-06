@@ -16,3 +16,6 @@ public class ConexionEmpleados {
         }
     }
 }
+
+/*no se crea otra base de datos ya que en la misma base pueden ir disntintas tablas*/
+
