@@ -1,3 +1,98 @@
+/*estilos interfaz empelado*/
+.contenedor {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-color: #D6E4F0;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-padding: 20;
+}
+
+.titulo-seccion {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2563EB;
+}
+
+.lbl-campo {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #374151;
+}
+
+.txt-campo {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #CBD5E1;
+    -fx-border-radius: 8;
+    -fx-padding: 8;
+    -fx-font-size: 13px;
+}
+
+.txt-campo:focused {
+    -fx-border-color: #2563EB;
+    -fx-border-width: 2;
+}
+
+.btn-buscar {
+    -fx-background-color: #2563EB;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.btn-buscar:hover {
+    -fx-background-color: #1D4ED8;
+}
+
+.btn-buscar:pressed {
+    -fx-background-color: #1E40AF;
+}
+
+/* tableview*/
+.tabla-productos{
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #D6E4F0;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-padding: 2;
+}
+
+/*encabezado de la tabla*/
+.tabla-productos .column-header-background{
+    -fx-background-color: #2563EB;
+    -fx-background-radius: 10 10 0 0;
+}
+
+.tabla-productos .column-header{
+    -fx-background-color: transparent;
+}
+
+.tabla-productos .column-header .label{
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/*filas*/
+.tabla-productos .table-row-cell{
+    -fx-background-color: white;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 0 0 1 0;
+}
+
+.tabla-productos .table-row-cell:hover{
+    -fx-background-color: #EFF6FF;
+}
+
+.tabla-productos .table-row-cell:selected{
+    -fx-background-color: #DBEAFE;
+}
+
+
 .lblTitulo{
     -fx-font-weight: bold;
     -fx-font-size:24px;
