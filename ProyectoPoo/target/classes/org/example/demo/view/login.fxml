@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="286.0" prefWidth="314.0" styleClass="panelLogin" stylesheets="@../css/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER_NAME">
+<AnchorPane prefHeight="286.0" prefWidth="314.0" styleClass="panelLogin" stylesheets="@../css/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.controller.LoginController">
     <children>
         <ImageView fitHeight="54.0" fitWidth="73.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -24,7 +24,7 @@
             <font>
                 <Font name="Source Code Pro Bold" size="16.0" />
             </font></Label>
-        <Button fx:id="btnIngreso" layoutX="126.0" layoutY="203.0" mnemonicParsing="false" styleClass="btnIngreso" stylesheets="@../css/estilos.css" text="Ingreso " />
+        <Button fx:id="btnIngreso" layoutX="126.0" layoutY="203.0" mnemonicParsing="false" onAction="#onIngresoClick" styleClass="btnIngreso" stylesheets="@../css/estilos.css" text="Ingreso " />
         <Button fx:id="btnSalir" layoutX="255.0" layoutY="247.0" mnemonicParsing="false" styleClass="btnSalir" stylesheets="@../css/estilos.css" text="salir" textFill="WHITE" />
         <PasswordField fx:id="passfContrasena" layoutX="38.0" layoutY="167.0" prefHeight="26.0" prefWidth="243.0" />
       <Label fx:id="lblMensajeLogin" layoutX="134.0" layoutY="247.0" />
