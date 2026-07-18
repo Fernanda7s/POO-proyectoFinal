@@ -67,6 +67,6 @@ public class Productos {
     }
 
     public String obtenerVista(){
-
-    };
+        return "";
+    }
 }

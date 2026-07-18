@@ -26,37 +26,36 @@ public class LoginController {
 
     @FXML
     private void onIngresoClick(){
-
         String usuario = txtUsuario.getText();
         String pass = passfContrasena.getText();
 
-        //necesito las alertas
-
-
+        if (usuario.isEmpty() || pass.isEmpty()) {
+            lblMensajeLogin.setText("Error campos vacios");
+            return;
+        }
 
         try {
             UsuariosDAO dao = new UsuariosDAO();
-            Persona persona = dao.iniciarSesion (
-                    txtUsuario.getText(),
-                    passfContrasena.getText()
-            );
-            if (usuario.isEmpty() || pass.isEmpty()) {
-                lblMensajeLogin.setText("Error campos vacios");
+            Persona persona = dao.iniciarSesion(usuario, pass);
+
+            if (persona == null) {
+                lblMensajeLogin.setText("Usuario o contrasena incorrectos");
                 return;
             }
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource(persona.obtenerVista()));
-            Parent root=loader.load();
+            Parent root = loader.load();
 
-            // Obtenemos la ventana actual del Login para cerrarla o cambiarla
-            Stage stageActual = (Stage) btnIngresar.getScene().getWindow();
-
-            Stage stage=new Stage();
+            Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+
+            Stage stageActual = (Stage) btnIngresar.getScene().getWindow();
+            stageActual.close();
         } catch (IOException e) {
-            lblMensajeLogin.setText("No se pudo carfa la pagina destino");
+            lblMensajeLogin.setText("No se pudo cargar la pagina destino");
             e.printStackTrace();
-        }catch (Exception e){
+        } catch (Exception e) {
             lblMensajeLogin.setText("Error inesperado");
             e.printStackTrace();
         }

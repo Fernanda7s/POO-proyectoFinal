@@ -1,15 +1,16 @@
 package org.example.demo.conexionDatos;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-    private static final  String url="jdbc:mysql://localhost:3306/empresa";
-    private static final String user="root";
+    private static final String url="jdbc:mysql://localhost:3306/empresa";
+    private static final String user="poo";
     private static final String password="root";
-    public static Conexion getConexion(){
+    public static Connection getConexion(){
         try {
-            return (Conexion) DriverManager.getConnection(url,user,password);
+            return DriverManager.getConnection(url,user,password);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

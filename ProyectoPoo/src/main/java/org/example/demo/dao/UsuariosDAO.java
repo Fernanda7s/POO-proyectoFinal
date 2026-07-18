@@ -9,13 +9,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class UsuariosDAO implements AccionesCrud<Persona> {
+public class UsuariosDAO implements AccionesCrud {
+
     public Persona iniciarSesion(String usuario, String clave) {
-        Persona user = null;
         String sql = "SELECT * FROM empleado WHERE usuario=? AND clave=?";
         try {
-            Connection con = (Connection) Conexion.getConexion();
+            Connection con = Conexion.getConexion();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, usuario);
             ps.setString(2, clave);
@@ -28,15 +30,10 @@ public class UsuariosDAO implements AccionesCrud<Persona> {
                 String users = rs.getString("usuario");
                 String password = rs.getString("clave");
                 String cargo = rs.getString("cargo");
-                //para identificar el cargo
-                if (cargo.equals("administracdor")) {
-                    return new Administrador(codigo, nombre, apellido, users, password, clave);
-                    //completar las clases para que deje de aparecer el error de missigin return , necesita retornar algo
+                if (cargo.equals("administrador")) {
+                    return new Administrador(codigo, nombre, apellido, users, password, cargo);
                 }
-
-
             }
-            //
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -44,29 +41,23 @@ public class UsuariosDAO implements AccionesCrud<Persona> {
     }
 
     @Override
-    public boolean crear(Persona people) {
-        return false;
-    }
-
-    @Override
     public boolean crear(Persona personas) {
         String sql = """
         INSERT INTO empleado
-        (nombre,apellido,usuario,clave,cargo)
-        VALUES (?,?,?,?,?)
+        (codigo,nombre,apellido,usuario,clave,cargo)
+        VALUES (?,?,?,?,?,?)
         """;
 
         try (
                 Connection con = Conexion.getConexion();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-
             ps.setString(1, personas.getId());
             ps.setString(2, personas.getNombre());
             ps.setString(3, personas.getApellido());
-            ps.setString(4, personas.getCargo());
-            ps.setString(5, personas.getUsuario());
-            ps.setString(6,personas.getContrasenia());
+            ps.setString(4, personas.getUsuario());
+            ps.setString(5, personas.getContrasenia());
+            ps.setString(6, personas.getCargo());
 
             return ps.executeUpdate() > 0;
 
@@ -78,25 +69,22 @@ public class UsuariosDAO implements AccionesCrud<Persona> {
 
     @Override
     public boolean actualizar(Persona personas) {
-
         String sql = """
         UPDATE empleado
         SET nombre=?,
             apellido=?,
             cargo=?
-        WHERE id=?
+        WHERE codigo=?
         """;
 
         try (
                 Connection con = Conexion.getConexion();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            ps.setString(1, personas.getId());
-            ps.setString(2, personas.getNombre());
-            ps.setString(3, personas.getApellido());
-            ps.setString(4, personas.getCargo());
-            ps.setString(5, personas.getUsuario());
-            ps.setString(6,personas.getContrasenia());
+            ps.setString(1, personas.getNombre());
+            ps.setString(2, personas.getApellido());
+            ps.setString(3, personas.getCargo());
+            ps.setString(4, personas.getId());
 
             return ps.executeUpdate() > 0;
 
@@ -108,22 +96,21 @@ public class UsuariosDAO implements AccionesCrud<Persona> {
 
     @Override
     public Persona buscar(String codigo) {
-        String sql = "SELECT * FROM empleado WHERE id=?";
+        String sql = "SELECT * FROM empleado WHERE codigo=?";
 
         try (
                 Connection con = Conexion.getConexion();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-
-            ps.setInt(1, id);
-
+            ps.setString(1, codigo);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-
-               Persona personas = new Persona();
-
-                personas.setId(("codigo"));
+                Persona personas = new Persona() {
+                    @Override
+                    public String obtenerVista() { return ""; }
+                };
+                personas.setId(rs.getString("codigo"));
                 personas.setNombre(rs.getString("nombre"));
                 personas.setApellido(rs.getString("apellido"));
                 personas.setUsuario(rs.getString("usuario"));
@@ -140,19 +127,15 @@ public class UsuariosDAO implements AccionesCrud<Persona> {
         return null;
     }
 
-
-
     @Override
-    public boolean eliminar(String codigo) {
-        String sql = "DELETE FROM empleado WHERE id=?";
+    public boolean eliminar(Persona people) {
+        String sql = "DELETE FROM empleado WHERE codigo=?";
 
         try (
                 Connection con = Conexion.getConexion();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-
-            ps.setInt(1, id);
-
+            ps.setString(1, people.getId());
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
@@ -160,4 +143,52 @@ public class UsuariosDAO implements AccionesCrud<Persona> {
             return false;
         }
     }
+
+    @Override
+    public boolean eliminar(String codigo) {
+        String sql = "DELETE FROM empleado WHERE codigo=?";
+
+        try (
+                Connection con = Conexion.getConexion();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setString(1, codigo);
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Persona> listar() {
+        List<Persona> lista = new ArrayList<>();
+        String sql = "SELECT * FROM empleado";
+
+        try (
+                Connection con = Conexion.getConexion();
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()
+        ) {
+            while (rs.next()) {
+                Persona personas = new Persona() {
+                    @Override
+                    public String obtenerVista() { return ""; }
+                };
+                personas.setId(rs.getString("codigo"));
+                personas.setNombre(rs.getString("nombre"));
+                personas.setApellido(rs.getString("apellido"));
+                personas.setUsuario(rs.getString("usuario"));
+                personas.setContrasenia(rs.getString("clave"));
+                personas.setCargo(rs.getString("cargo"));
+                lista.add(personas);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
 }

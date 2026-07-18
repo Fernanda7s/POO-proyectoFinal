@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="caja" prefHeight="540.0" prefWidth="702.0" styleClass="caja" stylesheets="@../css/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CONTROLLER_NAME">
+<AnchorPane fx:id="caja" prefHeight="540.0" prefWidth="702.0" styleClass="caja" stylesheets="@../css/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.controller.administradoProductosController">
     <children>
         <Pane fx:id="panel" prefHeight="540.0" prefWidth="200.0" styleClass="panel" stylesheets="@../css/estilos.css">
             <children>
@@ -26,17 +26,17 @@
                     </font>
                 </Label>
             </children></Pane>
-        <TableView layoutX="233.0" layoutY="270.0" prefHeight="215.0" prefWidth="454.0">
+        <TableView fx:id="tableProductos" layoutX="233.0" layoutY="270.0" prefHeight="215.0" prefWidth="454.0">
             <columns>
-                <TableColumn prefWidth="75.0" text="Codigo" />
-                <TableColumn prefWidth="75.0" text="Nombre" />
-                <TableColumn prefWidth="75.0" text="Catalogo" />
-                <TableColumn prefWidth="75.0" text="Marca" />
-                <TableColumn prefWidth="75.0" text="Stock" />
-                <TableColumn prefWidth="75.0" text="Precio" />
+                <TableColumn fx:id="clmCodigo" prefWidth="75.0" text="Codigo" />
+                <TableColumn fx:id="clmNombre" prefWidth="75.0" text="Nombre" />
+                <TableColumn fx:id="clmCatalogo" prefWidth="75.0" text="Catalogo" />
+                <TableColumn fx:id="clmMarca" prefWidth="75.0" text="Marca" />
+                <TableColumn fx:id="clmStock" prefWidth="75.0" text="Stock" />
+                <TableColumn fx:id="clmPrecio" prefWidth="75.0" text="Precio" />
             </columns>
         </TableView>
-        <Button fx:id="btnSalir" layoutX="647.0" layoutY="500.0" mnemonicParsing="false" text="Salir" />
+        <Button fx:id="btnSalir" layoutX="647.0" layoutY="500.0" mnemonicParsing="false" onAction="#onSalirClick" text="Salir" />
         <Button fx:id="btnCrear" layoutX="242.0" layoutY="225.0" mnemonicParsing="false" onAction="#onCrearClick" prefHeight="34.0" prefWidth="62.0" styleClass="btnCrear" stylesheets="@../css/estilos.css" text="Crear" />
         <Button fx:id="btnActualizar" layoutX="348.0" layoutY="225.0" mnemonicParsing="false" onAction="#onActualizarClick" prefHeight="34.0" prefWidth="68.0" styleClass="btnActualizar" stylesheets="@../css/estilos.css" text="Actualizar" />
         <Button fx:id="btnBuscar" layoutX="473.0" layoutY="225.0" mnemonicParsing="false" onAction="#onBuscarClick" prefHeight="34.0" prefWidth="62.0" styleClass="btnBuscar" stylesheets="@../css/estilos.css" text="Buscar" textFill="WHITE">
@@ -85,5 +85,6 @@
                 <Font name="System Bold" size="19.0" />
             </font>
         </Label>
+        <Label fx:id="lblMensaje" layoutX="242.0" layoutY="265.0" />
     </children>
 </AnchorPane>

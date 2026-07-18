@@ -64,6 +64,7 @@ public abstract class Persona {
         return cargo;
     }
     public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     public abstract String obtenerVista();
