@@ -37,13 +37,13 @@
             </columns>
         </TableView>
         <Button fx:id="btnSalir" layoutX="647.0" layoutY="500.0" mnemonicParsing="false" text="Salir" />
-        <Button fx:id="btnCrear" layoutX="242.0" layoutY="225.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="62.0" styleClass="btnCrear" stylesheets="@../css/estilos.css" text="Crear" />
-        <Button fx:id="btnActualizar" layoutX="348.0" layoutY="225.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="68.0" styleClass="btnActualizar" stylesheets="@../css/estilos.css" text="Actualizar" />
-        <Button fx:id="btnBuscar" layoutX="473.0" layoutY="225.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="62.0" styleClass="btnBuscar" stylesheets="@../css/estilos.css" text="Buscar" textFill="WHITE">
+        <Button fx:id="btnCrear" layoutX="242.0" layoutY="225.0" mnemonicParsing="false" onAction="#onCrearClick" prefHeight="34.0" prefWidth="62.0" styleClass="btnCrear" stylesheets="@../css/estilos.css" text="Crear" />
+        <Button fx:id="btnActualizar" layoutX="348.0" layoutY="225.0" mnemonicParsing="false" onAction="#onActualizarClick" prefHeight="34.0" prefWidth="68.0" styleClass="btnActualizar" stylesheets="@../css/estilos.css" text="Actualizar" />
+        <Button fx:id="btnBuscar" layoutX="473.0" layoutY="225.0" mnemonicParsing="false" onAction="#onBuscarClick" prefHeight="34.0" prefWidth="62.0" styleClass="btnBuscar" stylesheets="@../css/estilos.css" text="Buscar" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="12.0" />
             </font></Button>
-        <Button fx:id="btnEliminar" layoutX="585.0" layoutY="225.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="83.0" styleClass="btnEliminar" stylesheets="@../css/estilos.css" text="Eliminar " textFill="WHITE">
+        <Button fx:id="btnEliminar" layoutX="585.0" layoutY="225.0" mnemonicParsing="false" onAction="#onEliminarClick" prefHeight="34.0" prefWidth="83.0" styleClass="btnEliminar" stylesheets="@../css/estilos.css" text="Eliminar " textFill="WHITE">
             <font>
                 <Font name="Source Code Pro Bold" size="12.0" />
             </font></Button>

@@ -58,8 +58,12 @@ public abstract class Persona {
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
+
+
     public String getCargo() {
         return cargo;
+    }
+    public void setCargo(String cargo) {
     }
 
     public abstract String obtenerVista();

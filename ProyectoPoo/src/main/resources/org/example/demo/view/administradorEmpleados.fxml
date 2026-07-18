@@ -18,25 +18,25 @@
                     </font>
                 </Label>
             </children></Pane>
-        <TextField fx:id="txtCodigoEpd" layoutX="259.0" layoutY="56.0" prefHeight="26.0" prefWidth="209.0" />
-        <TextField fx:id="txtNombreEpd" layoutX="262.0" layoutY="103.0" prefHeight="26.0" prefWidth="197.0" />
-        <TextField fx:id="txtApellidoEpd" layoutX="262.0" layoutY="151.0" prefHeight="26.0" prefWidth="198.0" />
-        <ComboBox layoutX="262.0" layoutY="203.0" prefHeight="26.0" prefWidth="198.0" />
+        <TextField fx:id="txtCodigoEpd" layoutX="256.0" layoutY="56.0" prefHeight="26.0" prefWidth="209.0" promptText="Ingrese el codigo" />
+        <TextField fx:id="txtNombreEpd" layoutX="262.0" layoutY="103.0" prefHeight="26.0" prefWidth="197.0" promptText="Ingrese el nombre" />
+        <TextField fx:id="txtApellidoEpd" layoutX="262.0" layoutY="151.0" prefHeight="26.0" prefWidth="198.0" promptText="Ingrese el apelido" />
+        <ComboBox layoutX="262.0" layoutY="203.0" prefHeight="26.0" prefWidth="198.0" promptText="eliga el cargo" />
         <Label layoutX="206.0" layoutY="14.0" text="AMINISTRACION DE EMPLEADOS">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font></Label>
-        <Button fx:id="btnCrearEmp" layoutX="206.0" layoutY="256.0" mnemonicParsing="false" text="Crear" />
-        <Button fx:id="btnActualizarEmp" layoutX="336.0" layoutY="256.0" mnemonicParsing="false" text="Actualizar" />
-        <Button fx:id="btnBuscarEmp" layoutX="494.0" layoutY="82.0" mnemonicParsing="false" text="Buscar" />
+        <Button fx:id="btnCrearEmp" layoutX="206.0" layoutY="256.0" mnemonicParsing="false" onAction="#onCrearEmp" text="Crear" />
+        <Button fx:id="btnActualizarEmp" layoutX="336.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActualizarEmp" text="Actualizar" />
+        <Button fx:id="btnBuscarEmp" layoutX="494.0" layoutY="82.0" mnemonicParsing="false" onAction="#onBuscarEmp" text="Buscar" />
         <Button fx:id="btnEliminarEmp" layoutX="499.0" layoutY="256.0" mnemonicParsing="false" text="Eliminar" />
-        <TableView layoutX="178.0" layoutY="297.0" prefHeight="200.0" prefWidth="449.0">
+        <TableView layoutX="186.0" layoutY="330.0" prefHeight="200.0" prefWidth="449.0">
             <columns>
                 <TableColumn fx:id="clmCodigoEmp" prefWidth="75.0" text="CODIGO" />
                 <TableColumn fx:id="clmNombreEmp" prefWidth="75.0" text="NOMBRE" />
                 <TableColumn fx:id="clmApellidoEmp" prefWidth="75.0" text="APELLIDO" />
                 <TableColumn fx:id="clmCargoEmp" prefWidth="75.0" text="CARGO" />
-                <TableColumn fx:id="clmCargoEmp" prefWidth="75.0" text="USUARIO" />
+                <TableColumn fx:id="clmUsuarioEmp" prefWidth="75.0" text="USUARIO" />
                 <TableColumn fx:id="clmClaveEmp" prefWidth="75.0" text="CLAVE" />
             </columns>
         </TableView>
@@ -60,6 +60,12 @@
                 <Font name="System Bold" size="12.0" />
             </font>
         </Label>
-        <Button fx:id="btnSalirEmp" layoutX="528.0" layoutY="505.0" mnemonicParsing="false" text="Salir" />
+        <Button fx:id="btnSalirEmp" layoutX="596.0" layoutY="292.0" mnemonicParsing="false" text="Salir" />
+      <Label layoutX="192.0" layoutY="165.0" text="Apellido">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblMensaje" layoutX="297.0" layoutY="296.0" />
     </children>
 </AnchorPane>
