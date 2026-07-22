@@ -13,7 +13,7 @@ import org.example.demo.dao.UsuariosDAO;
 import org.example.demo.model.Persona;
 import org.example.demo.util.Validaciones;
 
-import java.awt.event.MouseEvent;
+import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.Random;
 
@@ -106,15 +106,22 @@ public class administradorEmpleadosController {
     @FXML
     public void onBuscarEmp (){
         UsuariosDAO dao = new UsuariosDAO();
-        Persona personas = dao.buscar(txtCodigoEpd.getText());
-        if (personas != null) {
-            txtCodigoEpd.setText(personas.getId().toString());
-            txtNombreEpd.setText(personas.getNombre());
-            txtApellidoEpd.setText(personas.getApellido());
-            cbxCargoEmp.setValue(personas.getCargo());
+        String codigo = txtCodigoEpd.getText();
+        String nombre = txtNombreEpd.getText();
 
-        }else {
-            lblMensaje.setText("No existe el empleado");
+        if (codigo.isEmpty() && nombre.isEmpty()) {
+            cargaTable();
+            return;
+        }
+
+        ObservableList<Persona> lista = FXCollections.observableArrayList();
+        lista.addAll(dao.buscarEmpleados(codigo, nombre));
+        tblEmpleados.setItems(lista);
+
+        if (lista.isEmpty()) {
+            lblMensaje.setText("No se encontraron empleados");
+        } else {
+            lblMensaje.setText("Se encontraron " + lista.size() + " empleados");
         }
     }
     @FXML
@@ -159,17 +166,17 @@ public class administradorEmpleadosController {
         tblEmpleados.setItems(lista);
     }
 
-    private void abrirUsuarios(MouseEvent event) {
+    @FXML
+    public void abrirProductos(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("org/example/demo/view/administracionProductos.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/view/administracionProductos.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Usuarios");
+            stage.setTitle("Productos");
             stage.show();
 
-            // Cierra la ventana actual (opcional)
             Stage actual = (Stage)((Node)event.getSource()).getScene().getWindow();
             actual.close();
 

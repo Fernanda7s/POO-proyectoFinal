@@ -3,11 +3,17 @@ package org.example.demo.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import org.example.demo.dao.ProductosDAO;
 import org.example.demo.model.Productos;
+
+import java.io.IOException;
 
 public class administradoProductosController {
     @FXML
@@ -159,17 +165,23 @@ public class administradoProductosController {
     @FXML
     public void onBuscarClick() {
         ProductosDAO dao = new ProductosDAO();
-        Productos producto = dao.buscar(txtCodigo.getText());
-        if (producto != null) {
-            txtCodigo.setText(producto.getCodigo());
-            txtNombre.setText(producto.getNombre());
-            cbxCatalogo.setValue(producto.getCatalogo());
-            txtMarca.setText(producto.getMarca());
-            txtPrecio.setText(String.valueOf(producto.getPrecio()));
-            cbxStock.getValueFactory().setValue(producto.getStock());
-            lblMensaje.setText("");
+        String codigo = txtCodigo.getText();
+        String nombre = txtNombre.getText();
+        String marca = txtMarca.getText();
+
+        if (codigo.isEmpty() && nombre.isEmpty() && marca.isEmpty()) {
+            cargaTable();
+            return;
+        }
+
+        ObservableList<Productos> lista = FXCollections.observableArrayList();
+        lista.addAll(dao.buscarProductos(codigo, nombre, marca));
+        tableProductos.setItems(lista);
+
+        if (lista.isEmpty()) {
+            lblMensaje.setText("No se encontraron productos");
         } else {
-            lblMensaje.setText("No existe el producto");
+            lblMensaje.setText("Se encontraron " + lista.size() + " productos");
         }
     }
 
@@ -189,6 +201,24 @@ public class administradoProductosController {
     public void onSalirClick() {
         Stage actual = (Stage) tableProductos.getScene().getWindow();
         actual.close();
+    }
+
+    @FXML
+    public void onPersonalClick(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/view/administradorEmpleados.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Empleados");
+            stage.show();
+
+            Stage actual = (Stage)((Node)event.getSource()).getScene().getWindow();
+            actual.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void limpiarCampos() {

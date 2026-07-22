@@ -69,13 +69,13 @@ public class ProductosDAO {
     }
 
     public Productos buscar(String codigo) {
-        String sql = "SELECT * FROM productos WHERE codigo=?";
+        String sql = "SELECT * FROM productos WHERE codigo LIKE ?";
 
         try (
                 Connection con = Conexion.getConexion();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            ps.setString(1, codigo);
+            ps.setString(1, "%" + codigo + "%");
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -94,6 +94,100 @@ public class ProductosDAO {
         }
 
         return null;
+    }
+
+    public List<Productos> buscarPorNombre(String nombre) {
+        List<Productos> lista = new ArrayList<>();
+        String sql = "SELECT * FROM productos WHERE nombre LIKE ?";
+
+        try (
+                Connection con = Conexion.getConexion();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setString(1, "%" + nombre + "%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                lista.add(new Productos(
+                        rs.getString("codigo"),
+                        rs.getString("nombre"),
+                        rs.getString("catalogo"),
+                        rs.getString("marca"),
+                        rs.getDouble("precio"),
+                        rs.getInt("stock")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+    public List<Productos> buscarPorMarca(String marca) {
+        List<Productos> lista = new ArrayList<>();
+        String sql = "SELECT * FROM productos WHERE marca LIKE ?";
+
+        try (
+                Connection con = Conexion.getConexion();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setString(1, "%" + marca + "%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                lista.add(new Productos(
+                        rs.getString("codigo"),
+                        rs.getString("nombre"),
+                        rs.getString("catalogo"),
+                        rs.getString("marca"),
+                        rs.getDouble("precio"),
+                        rs.getInt("stock")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+    public List<Productos> buscarProductos(String codigo, String nombre, String marca) {
+        List<Productos> lista = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT * FROM productos WHERE 1=1");
+
+        if (codigo != null && !codigo.isEmpty()) sql.append(" AND codigo LIKE ?");
+        if (nombre != null && !nombre.isEmpty()) sql.append(" AND nombre LIKE ?");
+        if (marca != null && !marca.isEmpty()) sql.append(" AND marca LIKE ?");
+
+        try (
+                Connection con = Conexion.getConexion();
+                PreparedStatement ps = con.prepareStatement(sql.toString())
+        ) {
+            int index = 1;
+            if (codigo != null && !codigo.isEmpty()) ps.setString(index++, "%" + codigo + "%");
+            if (nombre != null && !nombre.isEmpty()) ps.setString(index++, "%" + nombre + "%");
+            if (marca != null && !marca.isEmpty()) ps.setString(index++, "%" + marca + "%");
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                lista.add(new Productos(
+                        rs.getString("codigo"),
+                        rs.getString("nombre"),
+                        rs.getString("catalogo"),
+                        rs.getString("marca"),
+                        rs.getDouble("precio"),
+                        rs.getInt("stock")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
     }
 
     public boolean eliminar(String codigo) {

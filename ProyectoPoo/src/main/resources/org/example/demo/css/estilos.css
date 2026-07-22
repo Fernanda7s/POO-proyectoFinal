@@ -225,3 +225,9 @@
 .tabla-clientes .table-row-cell:selected {
     -fx-background-color: #FFEDD5;
 }
+.tablaRegistro{
+    -fx-background-color: #8ECAE6;
+}
+.btnRegistrar{
+    -fx-background-color: #FFB703;
+}

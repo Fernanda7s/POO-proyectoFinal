@@ -3,6 +3,8 @@ package org.example.demo.dao;
 import org.example.demo.conexionDatos.Conexion;
 import org.example.demo.interfaces.AccionesCrud;
 import org.example.demo.model.Administrador;
+import org.example.demo.model.Cliente;
+import org.example.demo.model.Empleado;
 import org.example.demo.model.Persona;
 
 import java.sql.Connection;
@@ -30,8 +32,16 @@ public class UsuariosDAO implements AccionesCrud {
                 String users = rs.getString("usuario");
                 String password = rs.getString("clave");
                 String cargo = rs.getString("cargo");
-                if (cargo.equals("administrador")) {
-                    return new Administrador(codigo, nombre, apellido, users, password, cargo);
+
+                switch (cargo) {
+                    case "administrador":
+                        return new Administrador(codigo, nombre, apellido, users, password, cargo);
+                    case "empleado":
+                        return new Empleado(codigo, nombre, apellido, users, password, cargo);
+                    case "cliente":
+                        return new Cliente(codigo, nombre, apellido, users, password, cargo);
+                    default:
+                        return null;
                 }
             }
         } catch (SQLException e) {
@@ -96,13 +106,13 @@ public class UsuariosDAO implements AccionesCrud {
 
     @Override
     public Persona buscar(String codigo) {
-        String sql = "SELECT * FROM empleado WHERE codigo=?";
+        String sql = "SELECT * FROM empleado WHERE codigo LIKE ?";
 
         try (
                 Connection con = Conexion.getConexion();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            ps.setString(1, codigo);
+            ps.setString(1, "%" + codigo + "%");
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -125,6 +135,75 @@ public class UsuariosDAO implements AccionesCrud {
         }
 
         return null;
+    }
+
+    public List<Persona> buscarPorNombre(String nombre) {
+        List<Persona> lista = new ArrayList<>();
+        String sql = "SELECT * FROM empleado WHERE nombre LIKE ?";
+
+        try (
+                Connection con = Conexion.getConexion();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setString(1, "%" + nombre + "%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Persona personas = new Persona() {
+                    @Override
+                    public String obtenerVista() { return ""; }
+                };
+                personas.setId(rs.getString("codigo"));
+                personas.setNombre(rs.getString("nombre"));
+                personas.setApellido(rs.getString("apellido"));
+                personas.setUsuario(rs.getString("usuario"));
+                personas.setContrasenia(rs.getString("clave"));
+                personas.setCargo(rs.getString("cargo"));
+                lista.add(personas);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+    public List<Persona> buscarEmpleados(String codigo, String nombre) {
+        List<Persona> lista = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT * FROM empleado WHERE 1=1");
+
+        if (codigo != null && !codigo.isEmpty()) sql.append(" AND codigo LIKE ?");
+        if (nombre != null && !nombre.isEmpty()) sql.append(" AND nombre LIKE ?");
+
+        try (
+                Connection con = Conexion.getConexion();
+                PreparedStatement ps = con.prepareStatement(sql.toString())
+        ) {
+            int index = 1;
+            if (codigo != null && !codigo.isEmpty()) ps.setString(index++, "%" + codigo + "%");
+            if (nombre != null && !nombre.isEmpty()) ps.setString(index++, "%" + nombre + "%");
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Persona personas = new Persona() {
+                    @Override
+                    public String obtenerVista() { return ""; }
+                };
+                personas.setId(rs.getString("codigo"));
+                personas.setNombre(rs.getString("nombre"));
+                personas.setApellido(rs.getString("apellido"));
+                personas.setUsuario(rs.getString("usuario"));
+                personas.setContrasenia(rs.getString("clave"));
+                personas.setCargo(rs.getString("cargo"));
+                lista.add(personas);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
     }
 
     @Override

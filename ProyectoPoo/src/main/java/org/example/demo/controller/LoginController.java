@@ -43,7 +43,7 @@ public class LoginController {
                 return;
             }
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(persona.obtenerVista()));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + persona.obtenerVista()));
             Parent root = loader.load();
 
             Stage stage = new Stage();
@@ -56,7 +56,26 @@ public class LoginController {
             lblMensajeLogin.setText("No se pudo cargar la pagina destino");
             e.printStackTrace();
         } catch (Exception e) {
-            lblMensajeLogin.setText("Error inesperado");
+            lblMensajeLogin.setText("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onRegistroClienteClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/view/registro.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("TecnoCelular - Registro");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            Stage stageActual = (Stage) btnIngresar.getScene().getWindow();
+            stageActual.close();
+        } catch (IOException e) {
+            lblMensajeLogin.setText("No se pudo abrir la ventana de registro");
             e.printStackTrace();
         }
     }

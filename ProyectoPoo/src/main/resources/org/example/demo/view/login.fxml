@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="286.0" prefWidth="314.0" styleClass="panelLogin" stylesheets="@../css/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.controller.LoginController">
+<AnchorPane prefHeight="353.0" prefWidth="314.0" styleClass="panelLogin" stylesheets="@../css/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.controller.LoginController">
     <children>
         <ImageView fitHeight="54.0" fitWidth="73.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -28,5 +28,6 @@
         <Button fx:id="btnSalir" layoutX="255.0" layoutY="247.0" mnemonicParsing="false" styleClass="btnSalir" stylesheets="@../css/estilos.css" text="salir" textFill="WHITE" />
         <PasswordField fx:id="passfContrasena" layoutX="38.0" layoutY="167.0" prefHeight="26.0" prefWidth="243.0" />
       <Label fx:id="lblMensajeLogin" layoutX="134.0" layoutY="247.0" />
+      <Button fx:id="btnRegristoCliente" layoutX="25.0" layoutY="243.0" mnemonicParsing="false" onAction="#onRegistroClienteClick" styleClass="btnIngreso" stylesheets="@../css/estilos.css" text="Registro de Clientes" />
     </children>
 </AnchorPane>
