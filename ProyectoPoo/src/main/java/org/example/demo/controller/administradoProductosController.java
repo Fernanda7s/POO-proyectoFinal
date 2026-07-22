@@ -140,15 +140,28 @@ public class administradoProductosController {
             lblMensaje.setText("El codigo es obligatorio para actualizar");
             return;
         }
-
-        double precio = 0;
-        if (precioText != null && !precioText.trim().isEmpty()) {
-            if (!precioText.matches("\\d+(\\.\\d+)?")) {
-                lblMensaje.setText("El precio debe ser un numero");
-                return;
-            }
-            precio = Double.parseDouble(precioText);
+        if (nombre == null || nombre.trim().isEmpty()) {
+            lblMensaje.setText("El nombre es obligatorio");
+            return;
         }
+        if (catalogo == null) {
+            lblMensaje.setText("Debe seleccionar un catalogo");
+            return;
+        }
+        if (marca == null || marca.trim().isEmpty()) {
+            lblMensaje.setText("La marca es obligatoria");
+            return;
+        }
+        if (precioText == null || precioText.trim().isEmpty()) {
+            lblMensaje.setText("El precio es obligatorio");
+            return;
+        }
+        if (!precioText.matches("\\d+(\\.\\d+)?")) {
+            lblMensaje.setText("El precio debe ser un numero");
+            return;
+        }
+
+        double precio = Double.parseDouble(precioText);
 
         Productos producto = new Productos(codigo, nombre, catalogo, marca, precio, stock);
 
@@ -187,8 +200,14 @@ public class administradoProductosController {
 
     @FXML
     public void onEliminarClick() {
+        String codigo = txtCodigo.getText();
+        if (codigo == null || codigo.trim().isEmpty()) {
+            lblMensaje.setText("Ingrese un codigo para eliminar");
+            return;
+        }
+
         ProductosDAO dao = new ProductosDAO();
-        if (dao.eliminar(txtCodigo.getText())) {
+        if (dao.eliminar(codigo)) {
             lblMensaje.setText("Producto eliminado correctamente");
             limpiarCampos();
             cargaTable();

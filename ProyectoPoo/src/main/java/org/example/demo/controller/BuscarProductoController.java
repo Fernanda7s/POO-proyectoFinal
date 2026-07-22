@@ -4,7 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import org.example.demo.dao.ProductosDAO;
+import org.example.demo.model.Productos;
 
 public class BuscarProductoController {
 
@@ -14,41 +15,47 @@ public class BuscarProductoController {
     private TextField txtMarca;
 
     @FXML
-    private TableView<Producto> tablaProductos;
+    private TableView<Productos> tablaProductos;
     @FXML
-    private TableColumn<Producto, String> colId;
+    private TableColumn<Productos, String> colId;
     @FXML
-    private TableColumn<Producto, String> colCodigo;
+    private TableColumn<Productos, String> colCodigo;
     @FXML
-    private TableColumn<Producto, String> colNombre;
+    private TableColumn<Productos, String> colNombre;
     @FXML
-    private TableColumn<Producto, String> colMarca;
+    private TableColumn<Productos, String> colMarca;
     @FXML
-    private TableColumn<Producto, Double> colPrecio;
+    private TableColumn<Productos, Double> colPrecio;
     @FXML
-    private TableColumn<Producto, Integer> colStock;
+    private TableColumn<Productos, Integer> colStock;
     @FXML
-    private TableColumn<Producto, String> colCatalogo;
-
-    //productos de prueba, despues se conecta con la bd
-    private final ObservableList<Producto> listaProductos = FXCollections.observableArrayList(
-            new Producto("1", "P001", "iPhone 13", "Apple", 850.0, 10, "Gama Alta"),
-            new Producto("2", "P002", "Galaxy A54", "Samsung", 320.0, 15, "Gama Media"),
-            new Producto("3", "P003", "Redmi Note 12", "Xiaomi", 210.0, 20, "Gama Media"),
-            new Producto("4", "P004", "iPhone SE", "Apple", 430.0, 8, "Gama Media")
-    );
+    private TableColumn<Productos, String> colCatalogo;
 
     @FXML
     public void initialize() {
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
-        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
-        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        colCatalogo.setCellValueFactory(new PropertyValueFactory<>("catalogo"));
+        colId.setCellValueFactory(cellData -> new javafx.beans.binding.StringBinding() {
+            @Override protected String computeValue() { return cellData.getValue().getCodigo(); }
+        });
+        colCodigo.setCellValueFactory(cellData -> new javafx.beans.binding.StringBinding() {
+            @Override protected String computeValue() { return cellData.getValue().getCodigo(); }
+        });
+        colNombre.setCellValueFactory(cellData -> new javafx.beans.binding.StringBinding() {
+            @Override protected String computeValue() { return cellData.getValue().getNombre(); }
+        });
+        colMarca.setCellValueFactory(cellData -> new javafx.beans.binding.StringBinding() {
+            @Override protected String computeValue() { return cellData.getValue().getMarca(); }
+        });
+        colPrecio.setCellValueFactory(cellData -> new javafx.beans.binding.ObjectBinding<Double>() {
+            @Override protected Double computeValue() { return cellData.getValue().getPrecio(); }
+        });
+        colStock.setCellValueFactory(cellData -> new javafx.beans.binding.ObjectBinding<Integer>() {
+            @Override protected Integer computeValue() { return cellData.getValue().getStock(); }
+        });
+        colCatalogo.setCellValueFactory(cellData -> new javafx.beans.binding.StringBinding() {
+            @Override protected String computeValue() { return cellData.getValue().getCatalogo(); }
+        });
 
-        tablaProductos.setItems(listaProductos);
+        cargaTabla();
     }
 
     @FXML
@@ -56,26 +63,26 @@ public class BuscarProductoController {
         String nombre = txtNombre.getText().trim();
         String marca = txtMarca.getText().trim();
 
-        //si no puso nada, muestro todos otra vez
         if (nombre.isEmpty() && marca.isEmpty()) {
-            tablaProductos.setItems(listaProductos);
+            cargaTabla();
             return;
         }
 
-        ObservableList<Producto> resultado = FXCollections.observableArrayList();
-        for (Producto p : listaProductos) {
-            boolean coincideNombre = nombre.isEmpty() || p.getNombre().toLowerCase().contains(nombre.toLowerCase());
-            boolean coincideMarca = marca.isEmpty() || p.getMarca().equalsIgnoreCase(marca);
+        ProductosDAO dao = new ProductosDAO();
+        ObservableList<Productos> lista = FXCollections.observableArrayList();
+        lista.addAll(dao.buscarProductos(null, nombre, marca));
+        tablaProductos.setItems(lista);
 
-            if (coincideNombre && coincideMarca) {
-                resultado.add(p);
-            }
-        }
-
-        if (resultado.isEmpty()) {
+        if (lista.isEmpty()) {
             mostrarAlerta("No se encontraron productos con esos datos.");
         }
-        tablaProductos.setItems(resultado);
+    }
+
+    private void cargaTabla() {
+        ProductosDAO dao = new ProductosDAO();
+        ObservableList<Productos> lista = FXCollections.observableArrayList();
+        lista.addAll(dao.listar());
+        tablaProductos.setItems(lista);
     }
 
     private void mostrarAlerta(String mensaje) {
@@ -84,34 +91,5 @@ public class BuscarProductoController {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
-    }
-
-    //clase para armar los productos de prueba, cuando este la bd se cambia por el modelo real
-    public static class Producto {
-        private final String id;
-        private final String codigo;
-        private final String nombre;
-        private final String marca;
-        private final double precio;
-        private final int stock;
-        private final String catalogo;
-
-        public Producto(String id, String codigo, String nombre, String marca, double precio, int stock, String catalogo) {
-            this.id = id;
-            this.codigo = codigo;
-            this.nombre = nombre;
-            this.marca = marca;
-            this.precio = precio;
-            this.stock = stock;
-            this.catalogo = catalogo;
-        }
-
-        public String getId() { return id; }
-        public String getCodigo() { return codigo; }
-        public String getNombre() { return nombre; }
-        public String getMarca() { return marca; }
-        public double getPrecio() { return precio; }
-        public int getStock() { return stock; }
-        public String getCatalogo() { return catalogo; }
     }
 }

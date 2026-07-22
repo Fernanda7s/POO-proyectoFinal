@@ -47,16 +47,9 @@
       </Label>
       <PasswordField fx:id="txtRepContrasenia" layoutX="140.0" layoutY="230.0" prefHeight="26.0" prefWidth="230.0" promptText="vuelve a escribir la contraseña" />
 
-      <Label layoutX="50.0" layoutY="275.0" text="Cargo:">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <ComboBox fx:id="comboCargo" layoutX="130.0" layoutY="270.0" prefHeight="30.0" prefWidth="240.0" promptText="Selecciona un cargo" />
+      <Label fx:id="lblMensaje" layoutX="130.0" layoutY="275.0" />
 
-      <Label fx:id="lblMensaje" layoutX="130.0" layoutY="315.0" />
-
-      <Button fx:id="btnRegistrar" layoutX="80.0" layoutY="350.0" mnemonicParsing="false" onAction="#onRegistrar" styleClass="btnRegistrar" stylesheets="@../css/estilos.css" text="Registrar" prefHeight="35.0" prefWidth="120.0" />
-      <Button fx:id="btnSalir" layoutX="230.0" layoutY="350.0" mnemonicParsing="false" onAction="#onSalir" styleClass="btnSalir" stylesheets="@../css/estilos.css" text="Salir" prefHeight="35.0" prefWidth="120.0" textFill="WHITE" />
+      <Button fx:id="btnRegistrar" layoutX="80.0" layoutY="315.0" mnemonicParsing="false" onAction="#onRegistrar" styleClass="btnRegistrar" stylesheets="@../css/estilos.css" text="Registrar" prefHeight="35.0" prefWidth="120.0" />
+      <Button fx:id="btnSalir" layoutX="230.0" layoutY="315.0" mnemonicParsing="false" onAction="#onSalir" styleClass="btnSalir" stylesheets="@../css/estilos.css" text="Salir" prefHeight="35.0" prefWidth="120.0" textFill="WHITE" />
    </children>
 </AnchorPane>

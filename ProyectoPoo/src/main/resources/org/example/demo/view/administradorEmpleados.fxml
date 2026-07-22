@@ -25,7 +25,7 @@
         <Button fx:id="btnCrearEmp" layoutX="206.0" layoutY="256.0" mnemonicParsing="false" onAction="#onCrearEmp" text="Crear" />
         <Button fx:id="btnActualizarEmp" layoutX="336.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActualizarEmp" text="Actualizar" />
         <Button fx:id="btnBuscarEmp" layoutX="494.0" layoutY="82.0" mnemonicParsing="false" onAction="#onBuscarEmp" text="Buscar" />
-        <Button fx:id="btnEliminarEmp" layoutX="499.0" layoutY="256.0" mnemonicParsing="false" text="Eliminar" />
+        <Button fx:id="btnEliminarEmp" layoutX="499.0" layoutY="256.0" mnemonicParsing="false" onAction="#onEliminarEmp" text="Eliminar" />
         <TableView fx:id="tblEmpleados" layoutX="186.0" layoutY="330.0" prefHeight="200.0" prefWidth="449.0">
             <columns>
                 <TableColumn fx:id="clmCodigoEmp" prefWidth="75.0" text="CODIGO" />
@@ -56,7 +56,7 @@
                 <Font name="System Bold" size="12.0" />
             </font>
         </Label>
-        <Button fx:id="btnSalirEmp" layoutX="596.0" layoutY="292.0" mnemonicParsing="false" text="Salir" />
+        <Button fx:id="btnSalirEmp" layoutX="596.0" layoutY="292.0" mnemonicParsing="false" onAction="#btnSalirEmp" text="Salir" />
       <Label layoutX="192.0" layoutY="165.0">
          <font>
             <Font name="System Bold" size="12.0" />

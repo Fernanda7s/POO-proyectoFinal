@@ -83,7 +83,7 @@ public class ClienteController {
 
     private void abrirVentanaProductos() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/view/buscarProductos.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo/view/buscarproducto.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();

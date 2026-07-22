@@ -9,12 +9,8 @@ public class Conexion {
     private static final String user = "root";
     private static final String password = "esteban123";
 
-    public static Connection getConexion() {
-        try {
-            return DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public static Connection getConexion() throws SQLException {
+        return DriverManager.getConnection(url, user, password);
     }
 }
 

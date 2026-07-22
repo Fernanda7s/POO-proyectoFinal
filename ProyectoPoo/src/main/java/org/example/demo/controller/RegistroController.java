@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -29,16 +28,9 @@ public class RegistroController {
     @FXML
     private PasswordField txtRepContrasenia;
     @FXML
-    private ComboBox<String> comboCargo;
-    @FXML
     private Label lblMensaje;
     @FXML
     private Button btnRegistrar;
-
-    @FXML
-    public void initialize() {
-        comboCargo.getItems().addAll("cliente", "empleado", "administrador");
-    }
 
     @FXML
     private void onRegistrar() {
@@ -47,10 +39,10 @@ public class RegistroController {
         String usuario = txtUsuarioRegistro.getText();
         String contrasena = txtContrasenia.getText();
         String repContrasena = txtRepContrasenia.getText();
-        String cargo = comboCargo.getValue();
+        String cargo = "cliente";
 
         if (nombre.isEmpty() || apellido.isEmpty() || usuario.isEmpty()
-                || contrasena.isEmpty() || repContrasena.isEmpty() || cargo == null) {
+                || contrasena.isEmpty() || repContrasena.isEmpty()) {
             Alertas.mostrarAdvertencia("Campos vacíos", "Todos los campos son obligatorios.");
             return;
         }
@@ -90,23 +82,8 @@ public class RegistroController {
     }
 
     private String generarCodigo(String cargo) {
-        String prefijo;
-        switch (cargo) {
-            case "administrador":
-                prefijo = "ADM";
-                break;
-            case "empleado":
-                prefijo = "EMP";
-                break;
-            case "cliente":
-                prefijo = "CLI";
-                break;
-            default:
-                prefijo = "USR";
-                break;
-        }
         int numero = (int) (Math.random() * 900) + 100;
-        return prefijo + numero;
+        return "CLI" + numero;
     }
 
     @FXML

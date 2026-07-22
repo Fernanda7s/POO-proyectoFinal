@@ -27,27 +27,21 @@ public class administradorEmpleadosController {
     @FXML
     private ComboBox<String> cbxCargoEmp;
     @FXML
-    private TableColumn  clmCodigoEmp;
+    private TableColumn<Persona, String> clmCodigoEmp;
     @FXML
-    private TableColumn clmNombreEmp;
+    private TableColumn<Persona, String> clmNombreEmp;
     @FXML
-    private TableColumn clmApellidoEmp;
+    private TableColumn<Persona, String> clmApellidoEmp;
     @FXML
-    private TableColumn clmCargoEmp;
+    private TableColumn<Persona, String> clmCargoEmp;
     @FXML
-    private TableColumn clmUsuarioEmp;
+    private TableColumn<Persona, String> clmUsuarioEmp;
     @FXML
-    private TableColumn clmClaveEmp;
+    private TableColumn<Persona, String> clmClaveEmp;
     @FXML
     private Label lblMensaje;
     @FXML
-    private Button btnGuardar;
-    @FXML
-    private Button btnCancelar;
-    @FXML
     private TableView<Persona> tblEmpleados;
-    @FXML
-    private Label lblPersonal;
 
     @FXML
     public void initialize () {
@@ -56,6 +50,26 @@ public class administradorEmpleadosController {
                 "empleado",
                 "cliente");
 
+        clmCodigoEmp.setCellValueFactory(cellData -> new javafx.beans.binding.StringBinding() {
+            @Override protected String computeValue() { return cellData.getValue().getId(); }
+        });
+        clmNombreEmp.setCellValueFactory(cellData -> new javafx.beans.binding.StringBinding() {
+            @Override protected String computeValue() { return cellData.getValue().getNombre(); }
+        });
+        clmApellidoEmp.setCellValueFactory(cellData -> new javafx.beans.binding.StringBinding() {
+            @Override protected String computeValue() { return cellData.getValue().getApellido(); }
+        });
+        clmCargoEmp.setCellValueFactory(cellData -> new javafx.beans.binding.StringBinding() {
+            @Override protected String computeValue() { return cellData.getValue().getCargo(); }
+        });
+        clmUsuarioEmp.setCellValueFactory(cellData -> new javafx.beans.binding.StringBinding() {
+            @Override protected String computeValue() { return cellData.getValue().getUsuario(); }
+        });
+        clmClaveEmp.setCellValueFactory(cellData -> new javafx.beans.binding.StringBinding() {
+            @Override protected String computeValue() { return cellData.getValue().getContrasenia(); }
+        });
+
+        cargaTable();
     };
     @FXML
     public void onCrearEmp (){
@@ -88,14 +102,18 @@ public class administradorEmpleadosController {
         personas.setContrasenia(contrasenia);
 
         //se llama al dao
-        UsuariosDAO dao = new UsuariosDAO();
-        if (dao.crear(personas)) {
-            lblMensaje.setText("Guardado correctamente. Usuario: " + usuario + " | Contraseña: " + contrasenia);
-            limpiarCampos();
-            cargaTable();
-
-        }else {
-            lblMensaje.setText("Error creando empleado");
+        try {
+            UsuariosDAO dao = new UsuariosDAO();
+            if (dao.crear(personas)) {
+                lblMensaje.setText("Guardado correctamente. Usuario: " + usuario + " | Contraseña: " + contrasenia);
+                limpiarCampos();
+                cargaTable();
+            } else {
+                lblMensaje.setText("Error creando empleado");
+            }
+        } catch (Exception e) {
+            lblMensaje.setText("Error de conexión: " + e.getMessage());
+            e.printStackTrace();
         }
 
 
@@ -126,30 +144,67 @@ public class administradorEmpleadosController {
     }
     @FXML
     public void onActualizarEmp(){
+        String codigoEpd = txtCodigoEpd.getText();
+        String nombreEpd = txtNombreEpd.getText();
+        String apellidoEpd = txtApellidoEpd.getText();
+        String cargoEpd = cbxCargoEmp.getValue();
+
+        String error = Validaciones.validarEmpleado(codigoEpd, nombreEpd, apellidoEpd, cargoEpd);
+        if (error != null) {
+            lblMensaje.setText(error);
+            return;
+        }
+
         Persona personas = new Persona() {
             @Override
             public String obtenerVista() { return ""; }
         };
-        personas.setId(txtCodigoEpd.getText());
-        personas.setNombre(txtNombreEpd.getText());
-        personas.setApellido(txtApellidoEpd.getText());
-        personas.setCargo(cbxCargoEmp.getValue());
-        UsuariosDAO dao = new UsuariosDAO();
-        if (dao.actualizar(personas)) {
-            lblMensaje.setText("Actualizado correctamente");
-            cargaTable();
+        personas.setId(codigoEpd);
+        personas.setNombre(nombreEpd);
+        personas.setApellido(apellidoEpd);
+        personas.setCargo(cargoEpd);
+
+        try {
+            UsuariosDAO dao = new UsuariosDAO();
+            if (dao.actualizar(personas)) {
+                lblMensaje.setText("Actualizado correctamente");
+                limpiarCampos();
+                cargaTable();
+            } else {
+                lblMensaje.setText("Error actualizando empleado");
+            }
+        } catch (Exception e) {
+            lblMensaje.setText("Error de conexión: " + e.getMessage());
+            e.printStackTrace();
         }
     }
     @FXML
     public void onEliminarEmp (){
-        UsuariosDAO dao = new UsuariosDAO();
-        if (dao.eliminar(txtCodigoEpd.getText())) {
-            lblMensaje.setText("Eliminado correctamente");
-            cargaTable();
+        String codigo = txtCodigoEpd.getText();
+        if (codigo == null || codigo.trim().isEmpty()) {
+            lblMensaje.setText("Ingrese un código para eliminar");
+            return;
+        }
+
+        try {
+            UsuariosDAO dao = new UsuariosDAO();
+            if (dao.eliminar(codigo)) {
+                lblMensaje.setText("Eliminado correctamente");
+                limpiarCampos();
+                cargaTable();
+            } else {
+                lblMensaje.setText("Error eliminando empleado");
+            }
+        } catch (Exception e) {
+            lblMensaje.setText("Error de conexión: " + e.getMessage());
+            e.printStackTrace();
         }
     }
     @FXML
-    public void btnSalirEmp (){}
+    public void btnSalirEmp (){
+        Stage actual = (Stage) tblEmpleados.getScene().getWindow();
+        actual.close();
+    }
 
 
     private void limpiarCampos(){
